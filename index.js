@@ -18,11 +18,19 @@ const express = require ('express');
 const morgan = require('morgan');
 const app = express();
 
+//Settings
+app.set('appName', 'Aprendiendo express');
+app.set('port', 5000);
+app.set('view engine', 'ejs');
 
 
 //Hacer que express sea capaz de leer un json
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.get('/', (req, res)=>{
+    res.render('index.ejs');
+});
 
 //Rutas pedidas por el servidor
 app.get('/user', (req, res)=>{
@@ -44,11 +52,12 @@ app.post('/test', (req,res)=>{
     res.send('Peticion post al servidor');
 });
 
+//Midlewar para archivos sticos
 app.use(express.static('public'));
 
 
 //Inicio del servidor
-app.listen(5000, ()=>{
+app.listen(app.get('port'), ()=>{
     console.log('Server on port 5000')
 });
 
