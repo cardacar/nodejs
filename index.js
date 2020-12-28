@@ -14,16 +14,43 @@ server.listen(3000, function(){
 }); */
 
 //Creando server con nodejs
-const express = require('express');
+const express = require ('express');
+const morgan = require('morgan');
+const app = express();
 
-const server = express();
 
-server.get('/', (req,res)=>{
-    res.send('<h1>Hola mundo con nodejs y express</h1>');
+
+//Hacer que express sea capaz de leer un json
+app.use(express.json());
+app.use(morgan('dev'));
+
+//Rutas pedidas por el servidor
+app.get('/user', (req, res)=>{
+    res.json({
+        username: 'Carlos',
+        lastName: 'Quiros'
+    });
 });
 
-server.listen(3000, ()=>{
-    console.log('Server on port 3000')
+app.put('/about', (req,res)=>{
+    res.send('Peticion put al servidor');
 });
+
+app.delete('/contact', (req,res)=>{
+    res.send('Peticion delete al servidor');
+});
+
+app.post('/test', (req,res)=>{
+    res.send('Peticion post al servidor');
+});
+
+app.use(express.static('public'));
+
+
+//Inicio del servidor
+app.listen(5000, ()=>{
+    console.log('Server on port 5000')
+});
+
 
 
