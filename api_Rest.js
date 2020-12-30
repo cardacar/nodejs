@@ -18,6 +18,7 @@ app.use(express.json());//Para poder leer formatos json
 //Routes->Aca se confifura las rutas del servidor->Empieza el REST API
 app.use(require('./routes/index'));
 app.use('/api/movies',require('./routes/movies'));
+app.use('/api/users', require('./routes/users'));
 
 
 //Starting the server
